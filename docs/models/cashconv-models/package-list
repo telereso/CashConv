@@ -1,0 +1,29 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:io.telereso.cashconv.models////PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/index.html
+$dokka.location:io.telereso.cashconv.models/Amount.Companion///PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/-companion/index.html
+$dokka.location:io.telereso.cashconv.models/Amount.Companion/default/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/-companion/default.html
+$dokka.location:io.telereso.cashconv.models/Amount///PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/index.html
+$dokka.location:io.telereso.cashconv.models/Amount/Amount/#io.telereso.cashconv.models.Currency#kotlin.String#io.telereso.cashconv.models.Currency#kotlin.String/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/-amount.html
+$dokka.location:io.telereso.cashconv.models/Amount/convertCurrency/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/convert-currency.html
+$dokka.location:io.telereso.cashconv.models/Amount/convertedValue/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/converted-value.html
+$dokka.location:io.telereso.cashconv.models/Amount/currency/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/currency.html
+$dokka.location:io.telereso.cashconv.models/Amount/json/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/json.html
+$dokka.location:io.telereso.cashconv.models/Amount/jsonPretty/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/json-pretty.html
+$dokka.location:io.telereso.cashconv.models/Amount/value/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-amount/value.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion///PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/index.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion/BASE/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/-b-a-s-e.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion/base/#kotlin.String/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/base.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion/from/#kotlin.String/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/from.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion/jpy/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/jpy.html
+$dokka.location:io.telereso.cashconv.models/Currency.Companion/usd/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-companion/usd.html
+$dokka.location:io.telereso.cashconv.models/Currency///PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/index.html
+$dokka.location:io.telereso.cashconv.models/Currency/Currency/#kotlin.String#kotlin.Double#kotlin.String#kotlin.String/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/-currency.html
+$dokka.location:io.telereso.cashconv.models/Currency/code/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/code.html
+$dokka.location:io.telereso.cashconv.models/Currency/converted/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/converted.html
+$dokka.location:io.telereso.cashconv.models/Currency/emptyRate/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/empty-rate.html
+$dokka.location:io.telereso.cashconv.models/Currency/isBase/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/is-base.html
+$dokka.location:io.telereso.cashconv.models/Currency/name/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/name.html
+$dokka.location:io.telereso.cashconv.models/Currency/rate/#/PointingToDeclaration/cashconv-models/io.telereso.cashconv.models/-currency/rate.html
+io.telereso.cashconv.models
+

@@ -1,0 +1,294 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>cashconv-client Coverage Report > CashconvClientRepositoryKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: cashconv-client<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.telereso.cashconv.client.repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: CashconvClientRepositoryKt (io.telereso.cashconv.client.repositories)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">CashconvClientRepositoryKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.1%
+  </span>
+  <span class="absValue">
+    (8/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.4%
+  </span>
+  <span class="absValue">
+    (107/121)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.telereso.cashconv.client.repositories
+&nbsp;
+&nbsp;import io.telereso.kmp.core.Log.logDebug
+&nbsp;import io.telereso.cashconv.client.cache.SettingsManager
+&nbsp;import io.telereso.cashconv.client.models.RatesResponse
+&nbsp;import io.telereso.cashconv.client.remote.CashconvApiService
+&nbsp;import io.telereso.cashconv.models.Currency
+&nbsp;import io.ktor.client.call.body
+&nbsp;import io.ktor.http.isSuccess
+&nbsp;import kotlinx.coroutines.flow.MutableStateFlow
+&nbsp;
+&nbsp;internal class CashconvClientRepository(
+&nbsp;    private val settingsManager: SettingsManager,
+&nbsp;    private val apiService: CashconvApiService,
+&nbsp;    private val floatingDigit: Int?,
+&nbsp;//    private val dao: Dao
+&nbsp;) {
+&nbsp;
+&nbsp;    internal val currenciesRatesFlow = MutableStateFlow&lt;List&lt;Currency&gt;&gt;(listOf())
+&nbsp;    internal val baseCurrencyFlow = MutableStateFlow(Currency.usd())
+&nbsp;    internal var ratesMap = hashMapOf&lt;String, Currency&gt;()
+&nbsp;
+&nbsp;    suspend fun init() {
+&nbsp;//        dao.getAllRocketLaunches()
+&nbsp;        // load currencies from cache
+&nbsp;        val rates = settingsManager.rates
+&nbsp;        currenciesRatesFlow.emit(settingsManager.rates)
+&nbsp;        baseCurrencyFlow.emit(settingsManager.base)
+&nbsp;        rates.forEach {
+&nbsp;            ratesMap[it.code] = it
+&nbsp;        }
+&nbsp;        fetchRatesIfNeeded()
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun getCurrencies(): List&lt;Currency&gt; {
+&nbsp;        return if (settingsManager.shouldFetchCurrencies)
+&nbsp;            runCatching { fetchCurrencies() }.getOrElse { settingsManager.currencies }
+&nbsp;        else
+&nbsp;            settingsManager.currencies
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun fetchCurrenciesIfNeeded(): List&lt;Currency&gt; {
+&nbsp;        logDebug(&quot;fetchCurrenciesIfNeeded&quot;)
+&nbsp;        return getCurrencies()
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun fetchCurrencies(): List&lt;Currency&gt; {
+&nbsp;        logDebug(&quot;fetchCurrencies&quot;)
+&nbsp;        val response = apiService.fetchCurrencies()
+&nbsp;        if (response.status.isSuccess()) {
+&nbsp;            val currencies = response
+&nbsp;                .body&lt;Map&lt;String, String&gt;&gt;()
+&nbsp;                .map { Currency(it.key, 0.0, name = it.value) }
+&nbsp;
+&nbsp;            settingsManager.currencies = currencies
+&nbsp;            return currencies
+&nbsp;
+&nbsp;        } else {
+&nbsp;            throw Throwable(&quot;Failed fetchCurrencies&quot;)
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun getRates(): List&lt;Currency&gt; {
+&nbsp;        logDebug(&quot;getRates&quot;)
+&nbsp;        return if (settingsManager.shouldFetchRates)
+&nbsp;            runCatching { fetchRates() }.getOrElse { settingsManager.rates }
+&nbsp;        else
+&nbsp;            settingsManager.rates
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun fetchRates(): List&lt;Currency&gt; {
+&nbsp;        logDebug(&quot;fetchRates&quot;)
+&nbsp;        val response = apiService.fetchRates()
+&nbsp;        if (response.status.isSuccess()) {
+&nbsp;            val res = response
+&nbsp;                .body&lt;RatesResponse&gt;()
+&nbsp;
+&nbsp;            val rates = res
+&nbsp;                .rates
+&nbsp;                .map { Currency(it.key, it.value) }
+&nbsp;
+&nbsp;            val base = Currency.base(res.base)
+&nbsp;
+&nbsp;            Currency.BASE = base
+&nbsp;            settingsManager.base = base
+&nbsp;            settingsManager.rates = rates
+&nbsp;            rates.forEach {
+&nbsp;                ratesMap[it.code] = it
+&nbsp;            }
+&nbsp;            currenciesRatesFlow.emit(rates)
+&nbsp;            baseCurrencyFlow.emit(base)
+&nbsp;
+&nbsp;            return rates
+&nbsp;
+&nbsp;        } else {
+&nbsp;            throw Throwable(&quot;Failed fetchRates&quot;)
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun fetchRatesIfNeeded(): List&lt;Currency&gt; {
+&nbsp;        logDebug(&quot;fetchRatesIfNeeded&quot;)
+&nbsp;        return getRates()
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    fun convert(
+&nbsp;        amount: String?,
+&nbsp;        from: String,
+&nbsp;        to: String,
+&nbsp;        applyFloatingLimit: Boolean = true
+&nbsp;    ): String {
+&nbsp;        val fromCurrency = ratesMap[from]
+&nbsp;        val toCurrency = ratesMap[to]
+&nbsp;
+&nbsp;        if (amount == null || fromCurrency == null || toCurrency == null
+&nbsp;        ) return &quot;-&quot;
+&nbsp;
+&nbsp;        return runCatching {
+&nbsp;            val converted = when {
+&nbsp;                fromCurrency.isBase() -&gt; {
+&nbsp;                    amount.toDouble().times(toCurrency.rate)
+&nbsp;                }
+&nbsp;
+&nbsp;                toCurrency.isBase() -&gt; {
+&nbsp;                    amount.toDouble().div(fromCurrency.rate)
+&nbsp;                }
+&nbsp;
+&nbsp;                else -&gt; {
+&nbsp;                    amount.toDouble().times(toCurrency.rate / fromCurrency.rate)
+&nbsp;                }
+&nbsp;            }
+&nbsp;            if (applyFloatingLimit)
+&nbsp;                converted.toDoubleString(floatingDigit)
+&nbsp;            else
+&nbsp;                converted.toString()
+&nbsp;        }.getOrElse { &quot;-&quot; }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;fun String.toDoubleString(digit: Int?): String {
+<b class="fc">&nbsp;    return runCatching {</b>
+<b class="fc">&nbsp;        val doubleString = toDouble().toString()</b>
+&nbsp;
+<b class="pc">&nbsp;        if (digit == null || digit &lt;= 0) return doubleString</b>
+&nbsp;
+<b class="pc">&nbsp;        if (!contains(&quot;.&quot;))</b>
+<b class="nc">&nbsp;            return &quot;${this.toLong()}.${&quot;0&quot;.repeat(digit)}&quot;</b>
+&nbsp;
+<b class="pc">&nbsp;        if (doubleString.contains(&quot;E&quot;)) return doubleString</b>
+&nbsp;
+<b class="fc">&nbsp;        val parts = this.split(&quot;.&quot;)</b>
+<b class="fc">&nbsp;        val floating = parts[1]</b>
+<b class="fc">&nbsp;        var extraZeros = digit - floating.length</b>
+<b class="pc">&nbsp;        if (extraZeros &lt; 0 || extraZeros &gt; digit)</b>
+<b class="nc">&nbsp;            extraZeros = 0</b>
+&nbsp;
+<b class="fc">&nbsp;        return &quot;${parts[0].toLong()}.${parts[1].take(digit)}${&quot;0&quot;.repeat(extraZeros)}&quot;</b>
+<b class="pc">&nbsp;    }.getOrElse {</b>
+<b class="fc">&nbsp;        &quot;0.0&quot;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;fun Double.toDoubleString(digit: Int?): String {
+<b class="fc">&nbsp;    return toString().toDoubleString(digit)</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-24 11:52</div>
+</div>
+</body>
+</html>

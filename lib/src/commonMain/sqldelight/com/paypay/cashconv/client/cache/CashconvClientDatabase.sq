@@ -1,0 +1,20 @@
+import io.telereso.cashconv.models.RocketLaunch;
+
+-- TODO Remove sample
+CREATE TABLE RocketLaunchT (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    rocketLaunch          TEXT AS RocketLaunch DEFAULT NULL
+);
+
+-- TODO Remove sample
+insertRocketLaunch:
+INSERT INTO RocketLaunchT(id, rocketLaunch)
+VALUES(?, ?);
+
+-- TODO Remove sample
+removeAllRocketLaunch:
+DELETE FROM RocketLaunchT;
+
+-- TODO Remove sample
+selectAllRocketLaunch:
+SELECT * FROM RocketLaunchT;

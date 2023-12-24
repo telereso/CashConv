@@ -1,0 +1,13 @@
+{
+  "currency": {
+    "code": "USD",
+    "rate": 0.0,
+    "name": "United States Dollar"
+  },
+  "value": "",
+  "convertCurrency": {
+    "code": "JPY",
+    "rate": 0.0,
+    "name": "Japanese Yen"
+  }
+}

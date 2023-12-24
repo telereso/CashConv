@@ -1,0 +1,20 @@
+{
+  "name": "jsapi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "echo visit http://localhost:3000 && DEBUG=jsApp:* node ./bin/www",
+    "build:package": "cd ../ && ./gradlew jsNodeProductionLibraryDistribution",
+    "refresh": "yarn build:package && yarn add file:../lib/build/dist/js/productionLibrary",
+    "rs": "yarn refresh && yarn start"
+  },
+  "dependencies": {
+    "@telereso/cashconv-client": "file:../lib/build/dist/js/productionLibrary",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  }
+}
