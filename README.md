@@ -175,3 +175,32 @@ Added flavor to android app project due to an issue in shot integration where we
 
 * normal
 * shot
+
+
+## Assemble
+
+### Android
+
+```shell  
+./gradlew assembleNormalRelease
+```
+
+### iOS
+
+```shell
+cd iosApp
+```
+
+#### Simulator
+
+```shell    
+xcodebuild -project 'iosApp.xcodeproj' -scheme 'iosApp' -sdk iphonesimulator -configuration Release SYMROOT="$(PWD)/build" -quiet
+```
+
+#### Zip 
+
+```shell  
+cd iosApp && zip -r build/CashConv.zip build/Release-iphonesimulator/CashConv.app
+```
+
+
