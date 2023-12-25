@@ -22,7 +22,7 @@ import kotlin.jvm.JvmStatic
  * @constructor a private constructor due to the build pattern.
  */
 @ExperimentalJsExport
-@JsExport
+// @JsExport
 @ReactNativeExport
 class CashconvClientManager private constructor(
     private val builder: Builder,

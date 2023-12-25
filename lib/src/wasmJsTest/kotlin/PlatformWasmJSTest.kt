@@ -2,7 +2,6 @@ package io.telereso.cashconv.client
 
 //import com.squareup.sqldelight.db.SqlDriver
 //import com.squareup.sqldelight.drivers.sqljs.initSqlDriver
-import kotlinx.coroutines.await
 
 private external fun require(module: String): dynamic
 private val fs = require("fs")

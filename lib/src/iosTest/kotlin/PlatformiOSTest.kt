@@ -1,6 +1,6 @@
 package io.telereso.cashconv.client
 
-import com.squareup.sqldelight.db.SqlDriver
+//import com.squareup.sqldelight.db.SqlDriver
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocArray
@@ -37,8 +37,8 @@ actual class Resource actual constructor(actual val name: String) {
     }
 }
 
-actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
-    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
-    TODO("Not yet implemented")
-//    return NativeSqliteDriver(schema, Dao.DATABASE_NAME)
-}
+//actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
+//    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
+//    TODO("Not yet implemented")
+////    return NativeSqliteDriver(schema, Dao.DATABASE_NAME)
+//}

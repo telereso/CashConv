@@ -64,8 +64,8 @@ kotlin {
         generateTypeScriptDefinitions()
     }
 
-//    @OptIn(ExperimentalWasmDsl::class)
-//    wasmJs()
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs()
 
     sourceSets {
 
@@ -114,6 +114,12 @@ kotlin {
             }
         }
         val jsTest by getting
+
+        val wasmJsMain by getting {
+            dependencies {
+                api(kmpLibsWasm.telereso.core)
+            }
+        }
     }
 }
 
@@ -144,3 +150,6 @@ tasks.dokkaHtml.configure {
         )
     )
 }
+
+tasks.getByName("compileKotlinWasmJs")
+    .dependsOn("kspCommonMainKotlinMetadata")

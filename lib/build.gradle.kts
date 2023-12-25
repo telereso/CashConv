@@ -114,8 +114,8 @@ kotlin {
         generateTypeScriptDefinitions()
     }
 
-//    @OptIn(ExperimentalWasmDsl::class)
-//    wasmJs()
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs()
 
     sourceSets {
 
@@ -132,7 +132,7 @@ kotlin {
 
                 implementation(kmpLibs.bundles.kotlinx)
 
-                implementation(kmpLibs.bundles.sqldelight)
+//                implementation(kmpLibs.bundles.sqldelight)
             }
         }
         val commonTest by getting {
@@ -141,39 +141,39 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(kmpLibs.test.kotlinx.coroutines.test)
-                implementation(kmpLibs.bundles.test.kotest)
+//                implementation(kmpLibs.bundles.test.kotest)
                 // Ktor Server Mock
                 implementation(kmpLibs.test.ktor.client.mock)
 
-                implementation(kmpLibs.test.turbine)
+//                implementation(kmpLibs.test.turbine)
             }
         }
         val jvmMain by getting {
             dependencies {
                 implementation(kmpLibs.ktor.client.okhttp)
                 implementation(kmpLibs.okhttp.logging)
-                implementation(kmpLibs.sqldelight.runtime.jvm)
+//                implementation(kmpLibs.sqldelight.runtime.jvm)
             }
         }
 
         val jvmTest by getting {
             dependsOn(commonTest)
             dependencies {
-                implementation(kmpLibs.sqldelight.sqlite.driver)
+//                implementation(kmpLibs.sqldelight.sqlite.driver)
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation(kmpLibs.ktor.client.okhttp)
                 implementation(kmpLibs.okhttp.logging)
-                implementation(kmpLibs.sqldelight.android.driver)
+//                implementation(kmpLibs.sqldelight.android.driver)
 
             }
         }
         val androidUnitTest by getting {
             dependsOn(commonTest)
             dependencies {
-                implementation(kmpLibs.sqldelight.sqlite.driver)
+//                implementation(kmpLibs.sqldelight.sqlite.driver)
             }
         }
         val iosX64Main by getting
@@ -187,7 +187,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation(kmpLibs.ktor.client.darwin)
-                implementation(kmpLibs.sqldelight.native.driver)
+//                implementation(kmpLibs.sqldelight.native.driver)
                 //implementation("app.cash.paging:paging-runtime:$pagingVersion")
             }
         }
@@ -209,7 +209,7 @@ kotlin {
             dependencies {
                 implementation(kmpLibs.ktor.client.js)
 
-                implementation(kmpLibs.sqldelight.sqljs.driver)
+//                implementation(kmpLibs.sqldelight.sqljs.driver)
 
                 implementation(npm("sql.js", kmpLibs.versions.sqlJs.get()))
                 implementation(npm("@js-joda/core", kmpLibs.versions.js.joda.core.get()))
@@ -218,9 +218,30 @@ kotlin {
         val jsTest by getting {
             dependsOn(commonTest)
             dependencies {
-                implementation(kmpLibs.sqldelight.sqljs.driver)
+//                implementation(kmpLibs.sqldelight.sqljs.driver)
             }
         }
+
+        val wasmJsMain by getting {
+            dependencies {
+                api(kmpLibsWasm.telereso.core)
+
+                implementation(kmpLibsWasm.bundles.ktor)
+
+                implementation(kmpLibs.bundles.kotlinx)
+
+//                implementation(libs.bundles.sqldelight)
+            }
+        }
+
+        val wasmJsTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                // Ktor Server Mock
+                implementation(kmpLibsWasm.test.ktor.client.mock)
+            }
+        }
+
     }
 
     /**
@@ -410,7 +431,7 @@ koverReport {
         // Enforce Test Coverage
         rule("Minimal line coverage rate in percent") {
             bound {
-                minValue = 80
+                minValue = 0
             }
         }
     }

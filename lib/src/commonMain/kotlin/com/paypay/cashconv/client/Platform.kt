@@ -1,7 +1,7 @@
 package io.telereso.cashconv.client
 
 import io.telereso.kmp.core.Settings
-import com.squareup.sqldelight.db.SqlDriver
+//import com.squareup.sqldelight.db.SqlDriver
 
 
 // For Android Parcelable
@@ -24,17 +24,17 @@ expect interface Parcelable
 @Retention(AnnotationRetention.BINARY)
 expect annotation class CommonParcelize()
 
-expect suspend fun provideDbDriver(
-    schema: SqlDriver.Schema,
-    databaseDriverFactory: CashconvClientDatabaseDriverFactory?
-): SqlDriver
+//expect suspend fun provideDbDriver(
+//    schema: SqlDriver.Schema,
+//    databaseDriverFactory: CashconvClientDatabaseDriverFactory?
+//): SqlDriver
 
 /**
  * an abstract factory for database drivers.
  * SQLDelight provides multiple platform-specific implementations of the SQLite driver, so you need to create them for each platform separately.
  */
-expect class CashconvClientDatabaseDriverFactory {
-    fun createDriver(): SqlDriver
-}
+//expect class CashconvClientDatabaseDriverFactory {
+//    fun createDriver(): SqlDriver
+//}
 
 val settings: Settings = Settings.get()

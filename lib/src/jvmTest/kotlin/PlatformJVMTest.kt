@@ -1,7 +1,7 @@
 package io.telereso.cashconv.client
 
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
+//import com.squareup.sqldelight.db.SqlDriver
+//import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import java.io.File
 
 
@@ -13,9 +13,9 @@ actual class Resource actual constructor(actual val name: String) {
     actual fun readText(): String = file.readText()
 }
 
-actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
-    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
-    return JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).apply {
-        schema.create(this)
-    }
-}
+//actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
+//    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
+//    return JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).apply {
+//        schema.create(this)
+//    }
+//}
