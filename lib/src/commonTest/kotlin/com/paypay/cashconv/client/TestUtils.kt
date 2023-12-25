@@ -1,6 +1,6 @@
 package io.telereso.cashconv.client
 
-import com.squareup.sqldelight.db.SqlDriver
+//import com.squareup.sqldelight.db.SqlDriver
 
 import kotlin.test.BeforeTest
 
@@ -21,10 +21,10 @@ class TestUtils {
     }
 }
 
-expect suspend fun provideDbDriverTest(
-    schema: SqlDriver.Schema,
-    databaseDriverFactory: CashconvClientDatabaseDriverFactory?
-): SqlDriver
+//expect suspend fun provideDbDriverTest(
+//    schema: SqlDriver.Schema,
+//    databaseDriverFactory: CashconvClientDatabaseDriverFactory?
+//): SqlDriver
 
 expect class Resource(name: String) {
     val name: String

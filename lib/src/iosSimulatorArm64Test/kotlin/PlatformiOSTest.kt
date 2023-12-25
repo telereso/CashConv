@@ -28,22 +28,22 @@ actual class Resource actual constructor(actual val name: String) {
     }
 }
 
-actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
-    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
-    TODO("Not yet implemented")
-//    return NativeSqliteDriver(
-//        DatabaseConfiguration(
-//            name = "${++dbIndex}-${Dao.DATABASE_NAME}",
-//            version = schema.version,
-//            create = { connection ->
-//                wrapConnection(connection) { schema.create(it) }
-//            },
-//            upgrade = { connection, oldVersion, newVersion ->
-//                wrapConnection(connection) {
-//                    schema.migrate(it, oldVersion, newVersion)
-//                }
-//            },
-//            inMemory = true
-//        )
-//    )
-}
+//actual suspend fun provideDbDriverTest(schema: SqlDriver.Schema,
+//    databaseDriverFactory: CashconvClientDatabaseDriverFactory?): SqlDriver {
+//    TODO("Not yet implemented")
+////    return NativeSqliteDriver(
+////        DatabaseConfiguration(
+////            name = "${++dbIndex}-${Dao.DATABASE_NAME}",
+////            version = schema.version,
+////            create = { connection ->
+////                wrapConnection(connection) { schema.create(it) }
+////            },
+////            upgrade = { connection, oldVersion, newVersion ->
+////                wrapConnection(connection) {
+////                    schema.migrate(it, oldVersion, newVersion)
+////                }
+////            },
+////            inMemory = true
+////        )
+////    )
+//}

@@ -5,7 +5,7 @@ import kotlin.js.JsExport
 import kotlin.jvm.JvmStatic
 
 @Serializable
-@JsExport
+// @JsExport
 data class Currency(
     val code: String,
     val rate: Double,

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
 
 @Serializable
-@JsExport
+// @JsExport
 data class Amount(
     val currency: Currency,
     val value: String,
